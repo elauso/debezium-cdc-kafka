@@ -40,5 +40,7 @@ class ProductController(
     }
 
     @DeleteMapping(value = ["/{id}"])
-    fun delete(@PathVariable id: Long) = productService.delete(id)
+    fun delete(@PathVariable id: Long) {
+        productService.delete(id)
+    }
 }

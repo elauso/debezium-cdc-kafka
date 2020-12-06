@@ -36,5 +36,7 @@ class ProductService(
     }
 
     @Transactional
-    fun delete(id: Long) = productRepository.deleteById(id)
+    fun delete(id: Long) {
+        productRepository.deleteById(id)
+    }
 }
