@@ -43,13 +43,13 @@ services:
       - "3306:3306"
     volumes:
       - ./mysql-data:/var/lib/mysql
-      - ./init.sql:/data/application/init.sql
       - ./mysql-config:/etc/mysql/conf.d
+      - ./init.sql:/data/application/init.sql
     command: --init-file /data/application/init.sql
 
   kafka-connect:
     image: debezium/connect:1.3
-    container_name: kafka-topics-ui
+    container_name: kafka-connect
     restart: unless-stopped
     depends_on:
       - kafka
