@@ -9,7 +9,7 @@
     "database.password": "root",
     "database.server.id": "184054",
     "database.server.name": "dbserver1",
-    "database.include.list": "product",
+    "database.include.list": "db_product",
     "database.history.kafka.bootstrap.servers": "kafka:9092",
     "database.history.kafka.topic": "dbhistory.product"
   }
