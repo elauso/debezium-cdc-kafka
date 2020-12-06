@@ -1,0 +1,69 @@
+version: "3"
+services:
+
+  zookeeper:
+    image: debezium/zookeeper:1.3
+    container_name: zookeeper
+    restart: unless-stopped
+    ports:
+      - "2181:2181"
+      - "2888:2888"
+      - "3888:3888"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      TZ: "${TZ-America/Sao_Paulo}"
+    healthcheck:
+      test: "echo stat | nc localhost $$ZOOKEEPER_CLIENT_PORT"
+
+  kafka:
+    image: debezium/kafka:1.3
+    container_name: kafka
+    restart: unless-stopped
+    depends_on:
+      - zookeeper
+    links:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      ZOOKEEPER_CONNECT: "zookeeper:2181"
+      JMX_PORT: 19093
+      TZ: "${TZ-America/Sao_Paulo}"
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "9092" ]
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "db_product"
+      MYSQL_USER: "product"
+      MYSQL_PASSWORD: "product"
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+      - ./init.sql:/data/application/init.sql
+      - ./mysql-config:/etc/mysql/conf.d
+    command: --init-file /data/application/init.sql
+
+  kafka-connect:
+    image: debezium/connect:1.3
+    container_name: kafka-topics-ui
+    restart: unless-stopped
+    depends_on:
+      - kafka
+      - mysql
+    links:
+      - kafka
+      - mysql
+    ports:
+      - "8083:8083"
+    environment:
+      BOOTSTRAP_SERVERS: "kafka:9092"
+      GROUP_ID: 1
+      CONFIG_STORAGE_TOPIC: "kafka_connect_configs"
+      OFFSET_STORAGE_TOPIC: "kafka_connect_offsets"
+      STATUS_STORAGE_TOPIC: "kafka_connect_statuses"
+    healthcheck:
+      test: "curl -H  'Accept: application/json' localhost:8083/ || exit 1"
