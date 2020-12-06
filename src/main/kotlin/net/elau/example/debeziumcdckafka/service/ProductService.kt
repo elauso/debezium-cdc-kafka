@@ -1,5 +1,8 @@
 package net.elau.example.debeziumcdckafka.service
 
+import net.elau.example.debeziumcdckafka.dto.CreateProductDto
+import net.elau.example.debeziumcdckafka.dto.ProductDto
+import net.elau.example.debeziumcdckafka.dto.UpdateProductDto
 import net.elau.example.debeziumcdckafka.mapper.ProductMapper
 import net.elau.example.debeziumcdckafka.repository.ProductRepository
 import org.springframework.stereotype.Service
@@ -14,4 +17,24 @@ class ProductService(
 
     @Transactional(propagation = NOT_SUPPORTED)
     fun findAll() = productMapper.toDto(productRepository.findAll())
+
+    @Transactional(propagation = NOT_SUPPORTED)
+    fun find(id: Long) = productMapper.toDto(productRepository.findById(id).orElseThrow())
+
+    @Transactional
+    fun create(createProductDto: CreateProductDto): ProductDto {
+        val product = productRepository.save(productMapper.toModel(createProductDto))
+        return productMapper.toDto(product)
+    }
+
+    @Transactional
+    fun update(updateProductDto: UpdateProductDto): ProductDto {
+        val product = productRepository.findById(updateProductDto.id).orElseThrow()
+        productMapper.updateFromDto(updateProductDto, product)
+        productRepository.save(product)
+        return productMapper.toDto(product)
+    }
+
+    @Transactional
+    fun delete(id: Long) = productRepository.deleteById(id)
 }

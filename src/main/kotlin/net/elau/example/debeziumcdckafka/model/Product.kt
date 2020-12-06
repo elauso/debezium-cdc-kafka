@@ -2,14 +2,14 @@ package net.elau.example.debeziumcdckafka.model
 
 import javax.persistence.*
 import javax.persistence.EnumType.STRING
-import javax.persistence.GenerationType.AUTO
+import javax.persistence.GenerationType.IDENTITY
 
 @Entity
 @Table(name = "products")
 data class Product(
 
     @Id
-    @GeneratedValue(strategy = AUTO)
+    @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id")
     val id: Long? = null,
 
