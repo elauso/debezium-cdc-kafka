@@ -1,6 +1,6 @@
 # Debezium CDC Kafka
 
-Essa é uma POC para testes do Debezium utilizado como CDC para stream de eventos no MYSQL.
+Essa é uma POC para testes do Debezium utilizado como CDC para stream de eventos no MySQL.
 
 O Debezium é uma ferramenta CDC utilizado para stream de eventos em bancos de dados e publicação em tópicos do Kafka.
 
@@ -35,7 +35,7 @@ gradle-plugin-avro               | 0.9.1
 
 ## Instalação
 
-* Suba as dependências da aplicação: ``` docker-compose up -d```
+* Suba as dependências da aplicação: ``` docker-compose up```
 * Verifique se ocorreu a subida de todas as dependências do docker-compose (verificar no log se o script do banco foi executado com sucesso)
 * Execute o script para configuração do connector no debezium: ```./configurecdc.sh```
 * Faça o build do projeto: ``` ./gradlew build ```
