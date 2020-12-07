@@ -43,6 +43,6 @@ gradle-plugin-avro               | 0.9.1
 
 ## Execução
 
-Utilize a interface do swagger (http://localhost:8080/swagger-ui.html) para executar operações na tabela de produtos. Não esqueça de monitorar o log da aplicação para verificar as mensagens consumidas do tópico logo após cada operação de INSERT/UPDATE/DELETE via API.
+Utilize a interface do swagger (http://localhost:8080/swagger-ui.html) para executar operações na tabela de produtos via API. Monitore o log da aplicação para verificar as mensagens consumidas do tópico logo após cada operação de INSERT / UPDATE / DELETE via API.
 
-A aplicação logará sempre que uma mensagem de evento do kafka (gerado pelo debezium) for consumida ``` grep 'Kafka stream event received:' ```
+A aplicação logará sempre que uma mensagem de evento do kafka, gerado pelo debezium, for consumida ``` grep 'Kafka stream event received:' ```
