@@ -1,10 +1,26 @@
 spring:
+  application: debezium-cdc-kafka-app
   jpa:
     show-sql: true
   datasource:
     url: jdbc:mysql://localhost:3306/db_product
     username: product
     password: product
+  cloud:
+    stream:
+      default-binder: kafka
+      kafka:
+        binder:
+          brokers:
+            - localhost:9092
+      bindings:
+        input:
+          binder: kafka
+          destination: dbserver1.db_product.products
+          group: ${spring.application.name}
+          content-type: application/json
+          consumer:
+            autoCommitOffset: true
 
 logging:
   level:

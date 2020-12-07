@@ -10,7 +10,9 @@
     "database.server.id": "184054",
     "database.server.name": "dbserver1",
     "database.include.list": "db_product",
+    "table.include.list": "db_product.products",
+    "column.include.list": "db_product.products.*",
     "database.history.kafka.bootstrap.servers": "kafka:9092",
-    "database.history.kafka.topic": "dbhistory.product"
+    "database.history.kafka.topic": "dbhistory.db_product"
   }
 }
