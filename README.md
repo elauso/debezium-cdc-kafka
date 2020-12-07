@@ -24,6 +24,7 @@ spring-boot                      | 2.4.0
 spring-cloud                     | 2020.0.0-M4
 spring-cloud-stream-kafka-binder | 2020.0.0-M4
 map-struct                       | 1.4.0.Beta3
+swagger                          | 2.9.2
 mysql-connector-java             | 8.0.22
 gradle-plugin-avro               | 0.9.1
 
